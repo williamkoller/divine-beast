@@ -1,20 +1,15 @@
 package user_router
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
-	shared_router "github.com/williamkoller/divine-beast/internal/shared/router"
+	handler_adduser "github.com/williamkoller/divine-beast/internal/user/handler/add-user"
 )
 
 var routerName = "users"
 
-func Routes() []shared_router.Route {
-	return []shared_router.Route{
-		{
-			Method:  "GET",
-			Path:    "/" + routerName,
-			Handler: func(c *gin.Context) { c.JSON(http.StatusOK, gin.H{"status": "user router"}) },
-		},
-	}
+func RegisterUserRoutes(r *gin.Engine) {
+	userRoutes := r.Group("/" + routerName)
+
+	userRoutes.POST("", handler_adduser.AddUser)
+
 }

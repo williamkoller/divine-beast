@@ -4,17 +4,15 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	shared_router "github.com/williamkoller/divine-beast/internal/shared/router"
 )
 
 var routerName = "orders"
 
-func Routes() []shared_router.Route {
-	return []shared_router.Route{
-		{
-			Method:  "GET",
-			Path:    "/" + routerName,
-			Handler: func(c *gin.Context) { c.JSON(http.StatusOK, gin.H{"status": "order router"}) },
-		},
-	}
+func RegisterOrderRoutes(r *gin.Engine) {
+	orderRoutes := r.Group("/" + routerName)
+
+	orderRoutes.GET("", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"message": "Hello, World!"})
+	})
+
 }
